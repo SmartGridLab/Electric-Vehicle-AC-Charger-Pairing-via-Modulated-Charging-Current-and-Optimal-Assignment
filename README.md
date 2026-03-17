@@ -127,9 +127,9 @@ python case_study/sensitivity_analysis/i_a_command_update_interval/i_a_Accuracy_
 This experiment performs a grid search over the **charger-side (II-a)** and **EV-side (II-b)** sampling intervals (5, 10, 30, 60 sec) to determine the conditions for robust assignment.
 
 ```bash
-# Run batch simulations for both metrics
-python case_study/sensitivity_analysis/ii_ab_Charger_and_EV_sampling_interval/ii_ab_batch_run.py
-
+# Run simulations for each metric
+python case_study/sensitivity_analysis/ii_ab_Charger_and_EV_sampling_interval/ii_ab_Correlation_DTW.py
+python case_study/sensitivity_analysis/ii_ab_Charger_and_EV_sampling_interval/ii_ab_Correlation_Euclidean.py
 ```
 
 *Output:* Results are saved in `case_study/sensitivity_analysis/ii_ab_Charger_and_EV_sampling_interval/accuracy/`.
@@ -143,10 +143,41 @@ python case_study/sensitivity_analysis/ii_ab_Charger_and_EV_sampling_interval/ii
 *Output:* Heatmaps are saved in `case_study/sensitivity_analysis/ii_ab_Charger_and_EV_sampling_interval/figures/`.
 
 #### B.3 Time delay from command value to EV current measurement (II-d) (Fig. 14)
-Making...
+This experiment quantifies the impact of the **time delay (II-d)** on pairing accuracy by sweeping the delay from 0 to 29 seconds. It highlights the performance difference between **transient** and **steady** states.
+
+```bash
+# Run the simulation for proposed metrics and baseline
+python case_study/sensitivity_analysis/ii-d_Time_delay_from_command_value_to_EV_current/ii_d_Correlation_DTW.py
+python case_study/sensitivity_analysis/ii-d_Time_delay_from_command_value_to_EV_current/ii_d_Correlation_Euclidean.py
+python case_study/sensitivity_analysis/ii-d_Time_delay_from_command_value_to_EV_current/ii_d_Correlation.py
+```
+*Output:* CSVs are saved in `case_study/sensitivity_analysis/ii-d_Time_delay_from_command_value_to_EV_current/accuracy/`.
+
+```bash
+# Visualize the sensitivity to time delay
+python case_study/sensitivity_analysis/ii-d_Time_delay_from_command_value_to_EV_current/ii_d_Accuracy_visualization.py
+```
+*Output:* Comparison plots (e.g., `ii_d_accuracy_all.png`) are saved in `case_study/sensitivity_analysis/ii-d_Time_delay_from_command_value_to_EV_current/figures/`.
+
 
 ### 3. Scalability Analysis (Section V-C) (Fig. 15)
-Making...
+
+This analysis evaluates the robustness of the framework as the **number of EV–charger pairs** increases (up to 1,000 pairs). It compares the **pairing accuracy** in both **transient** (short delay) and **steady** (long delay) operating regimes.
+
+```bash
+# Run scalability tests
+# Note: Ensure the 'ev_start_time' parameter is set to 5 (transient) or 25 (steady) inside the scripts.
+python case_study/scalability_analysis/scalability_Correlation_DTW.py
+python case_study/scalability_analysis/scalability_Correlation_Euclidean.py
+python case_study/scalability_analysis/scalability_Correlation.py
+```
+*Output:* Results are saved in `case_study/scalability_analysis/accuracy/`.
+
+```bash
+# Visualize scalability results
+python case_study/scalability_analysis/scalability_Accuracy_visualization.py
+```
+*Output:* Scalability plots (e.g., `scale_accuracy_all.png`) are saved in `case_study/scalability_analysis/figures/`.
 
 ---
 
