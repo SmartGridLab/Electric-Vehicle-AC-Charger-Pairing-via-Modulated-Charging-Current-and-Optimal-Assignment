@@ -6,7 +6,7 @@ import numpy as np
 import pandas as pd
 
 
-ROOT_DIR = Path(__file__).resolve().parents[2]
+ROOT_DIR = Path(__file__).resolve().parents[4]
 CASE_BASE = ROOT_DIR / "case_study/sensitivity_analysis/i_a_command_update_interval/accuracy"
 PURE_BASE = Path(__file__).resolve().parent / "accuracy"
 OUT_DIR = Path(__file__).resolve().parent / "figures"

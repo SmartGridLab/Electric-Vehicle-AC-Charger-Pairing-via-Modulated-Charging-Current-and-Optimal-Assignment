@@ -5,17 +5,17 @@ import numpy as np
 import pandas as pd
 
 
-ROOT_DIR = Path(__file__).resolve().parents[2]
+ROOT_DIR = Path(__file__).resolve().parents[4]
 GEN_DIR = ROOT_DIR / "charging_current_generation"
-REV_DIR = ROOT_DIR / "IEEE_Revision_JISEOK"
+REV_PAIR_DIR = Path(__file__).resolve().parents[3] / "pair_identification"
 sys.path.append(str(GEN_DIR))
-sys.path.append(str(REV_DIR))
+sys.path.append(str(REV_PAIR_DIR))
 
 from charging_current_generation_model import (  # noqa: E402
     generate_charger_ev_current,
     generate_command_patterns,
 )
-from revision2_pure_metrics import calculate_pure_euclidean_cost, perform_matching_from_cost  # noqa: E402
+from pure_metrics import calculate_pure_dtw_cost, perform_matching_from_cost  # noqa: E402
 
 
 if __name__ == "__main__":
@@ -40,12 +40,12 @@ if __name__ == "__main__":
 
             results = []
             for offset in range(30):
-                print(f"[Pure Euclidean][I-a] EV={ev_interval}s, tau={tau}s, delay={offset}s")
+                print(f"[Pure DTW][I-a] EV={ev_interval}s, tau={tau}s, delay={offset}s")
 
                 df_charger = df_charger_generation.iloc[0::charger_interval]
                 df_ev = df_ev_generation.iloc[offset::ev_interval]
 
-                cost_matrix = calculate_pure_euclidean_cost(df_charger, df_ev)
+                cost_matrix = calculate_pure_dtw_cost(df_charger, df_ev)
                 _, acc = perform_matching_from_cost(cost_matrix)
 
                 results.append(
@@ -56,6 +56,6 @@ if __name__ == "__main__":
                 )
 
             df_result = pd.DataFrame(results)
-            fname = f"{num_patterns}p_evint{ev_interval}_tau{tau}_PureEucAcc.csv"
+            fname = f"{num_patterns}p_evint{ev_interval}_tau{tau}_PureDTWAcc.csv"
             df_result.to_csv(out_dir / fname, index=False)
             print(f"Saved: {fname}")

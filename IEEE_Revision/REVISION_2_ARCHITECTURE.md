@@ -18,7 +18,7 @@ Nomura's clarification changes the target of revision `(2)` as follows.
   - `II-a / II-b` new pure-metric heatmaps
     - Reason: Nomura explicitly narrowed the new request to `I-a`, `II-d`, and `C`.
 
-This means the final Jiseok-side package for `(2)` is not "all Table I parameters".
+This means the final revision package for `(2)` is not "all Table I parameters".
 It is a focused comparison package for the three study items above.
 
 ## What the paper implies
@@ -60,34 +60,44 @@ The goal is to observe the result when the composite metric is decomposed into p
 
 ## Folder architecture
 
-The final revision tree should be organized by study item:
+The final revision tree should follow the same section-based structure as the main repository:
 
 ```text
-IEEE_Revision_JISEOK/
+IEEE_Revision/
+├── README.md
 ├── REVISION_2_ARCHITECTURE.md
-├── (2) I-a_command_update_interval/
-│   ├── accuracy/
-│   ├── figures/
-│   ├── pure_dtw_i_a.py
-│   ├── pure_euclidean_i_a.py
-│   └── pure_i_a_accuracy_visualization.py
-├── (2) II-d_time_delay_from_command_value_to_EV_current_measurement/
-│   ├── accuracy/
-│   ├── figures/
-│   ├── pure_dtw_ii_d.py
-│   ├── pure_euclidean_ii_d.py
-│   └── pure_ii_d_accuracy_visualization.py
-└── (2) C_scalability_with_the_number_of_EV-charger_pairs/
-    ├── accuracy/
-    ├── figures/
-    ├── pure_dtw_scalability.py
-    ├── pure_euclidean_scalability.py
-    └── pure_scale_accuracy_visualization.py
+├── pair_identification/
+│   └── pure_metrics.py
+└── case_study/
+    ├── sensitivity_analysis/
+    │   ├── i_a_command_update_interval/
+    │   │   ├── accuracy/
+    │   │   ├── figures/
+    │   │   ├── pure_dtw_i_a.py
+    │   │   ├── pure_euclidean_i_a.py
+    │   │   └── pure_i_a_accuracy_visualization.py
+    │   └── ii-d_Time_delay_from_command_value_to_EV_current/
+    │       ├── accuracy/
+    │       ├── figures/
+    │       ├── pure_dtw_ii_d.py
+    │       ├── pure_euclidean_ii_d.py
+    │       └── pure_ii_d_accuracy_visualization.py
+    └── scalability_analysis/
+        ├── accuracy/
+        ├── figures/
+        ├── pure_dtw_scalability.py
+        ├── pure_euclidean_scalability.py
+        ├── pure_scale_accuracy_visualization.py
+        └── runtime_analysis/
+            ├── runtime/
+            ├── figures/
+            ├── r24_r36_runtime_measurement.py
+            └── r24_r36_runtime_visualization.py
 ```
 
 ## Per-folder implementation plan
 
-### 1. `(2) I-a_command_update_interval`
+### 1. `case_study/sensitivity_analysis/i_a_command_update_interval`
 
 Source to mirror:
 
@@ -130,7 +140,7 @@ Result:
 
 - final `I-a` graphs should have five curves, not two or three.
 
-### 2. `(2) II-d_time_delay_from_command_value_to_EV_current_measurement`
+### 2. `case_study/sensitivity_analysis/ii-d_Time_delay_from_command_value_to_EV_current`
 
 Source to mirror:
 
@@ -169,7 +179,7 @@ Graph composition:
   - `Pure DTW`
   - `Pure Euclidean`
 
-### 3. `(2) C_scalability_with_the_number_of_EV-charger_pairs`
+### 3. `case_study/scalability_analysis`
 
 Source to mirror:
 
@@ -218,14 +228,16 @@ For clarity, each revision folder should keep the same output style:
   - `pure_euclidean_<study>.py`
 - visualization:
   - `pure_<study>_accuracy_visualization.py`
+- shared pure-metric utilities:
+  - `pair_identification/pure_metrics.py`
 
-This keeps the revision package separate from the original `case_study` tree and makes it easy for Nomura to consume only the final figures and CSVs.
+This keeps the revision package aligned with the original repository structure while remaining separate from the published `case_study` tree.
 
 ## Existing `(2) pure_graph` folder
 
-The existing folder:
+The existing exploratory folder reference:
 
-- `IEEE_Revision_JISEOK/(2) pure_graph`
+- `IEEE_Revision/case_study/...`
 
 should be treated as an exploratory prototype, not the final architecture.
 

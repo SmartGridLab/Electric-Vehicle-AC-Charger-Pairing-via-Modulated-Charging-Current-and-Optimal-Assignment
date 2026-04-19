@@ -5,17 +5,17 @@ import numpy as np
 import pandas as pd
 
 
-ROOT_DIR = Path(__file__).resolve().parents[2]
+ROOT_DIR = Path(__file__).resolve().parents[4]
 GEN_DIR = ROOT_DIR / "charging_current_generation"
-REV_DIR = ROOT_DIR / "IEEE_Revision_JISEOK"
+REV_PAIR_DIR = Path(__file__).resolve().parents[3] / "pair_identification"
 sys.path.append(str(GEN_DIR))
-sys.path.append(str(REV_DIR))
+sys.path.append(str(REV_PAIR_DIR))
 
 from charging_current_generation_model import (  # noqa: E402
     generate_charger_ev_current,
     generate_command_patterns,
 )
-from revision2_pure_metrics import calculate_pure_dtw_cost, perform_matching_from_cost  # noqa: E402
+from pure_metrics import calculate_pure_dtw_cost, perform_matching_from_cost  # noqa: E402
 
 
 if __name__ == "__main__":
