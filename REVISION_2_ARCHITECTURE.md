@@ -60,39 +60,37 @@ The goal is to observe the result when the composite metric is decomposed into p
 
 ## Folder architecture
 
-The final revision tree should follow the same section-based structure as the main repository:
+The reviewer-response additions should live inside the existing repository tree so readers can directly map each script to the manuscript sections:
 
 ```text
-IEEE_Revision/
-├── README.md
-├── REVISION_2_ARCHITECTURE.md
-├── pair_identification/
-│   └── pure_metrics.py
-└── case_study/
-    ├── sensitivity_analysis/
-    │   ├── i_a_command_update_interval/
-    │   │   ├── accuracy/
-    │   │   ├── figures/
-    │   │   ├── pure_dtw_i_a.py
-    │   │   ├── pure_euclidean_i_a.py
-    │   │   └── pure_i_a_accuracy_visualization.py
-    │   └── ii-d_Time_delay_from_command_value_to_EV_current/
-    │       ├── accuracy/
-    │       ├── figures/
-    │       ├── pure_dtw_ii_d.py
-    │       ├── pure_euclidean_ii_d.py
-    │       └── pure_ii_d_accuracy_visualization.py
-    └── scalability_analysis/
-        ├── accuracy/
+pair_identification/
+└── pure_metrics.py
+
+case_study/
+├── sensitivity_analysis/
+│   ├── i_a_command_update_interval/
+│   │   ├── accuracy/
+│   │   ├── figures/
+│   │   ├── pure_dtw_i_a.py
+│   │   ├── pure_euclidean_i_a.py
+│   │   └── pure_i_a_accuracy_visualization.py
+│   └── ii-d_Time_delay_from_command_value_to_EV_current/
+│       ├── accuracy/
+│       ├── figures/
+│       ├── pure_dtw_ii_d.py
+│       ├── pure_euclidean_ii_d.py
+│       └── pure_ii_d_accuracy_visualization.py
+└── scalability_analysis/
+    ├── accuracy/
+    ├── figures/
+    ├── pure_dtw_scalability.py
+    ├── pure_euclidean_scalability.py
+    ├── pure_scale_accuracy_visualization.py
+    └── runtime_analysis/
+        ├── runtime/
         ├── figures/
-        ├── pure_dtw_scalability.py
-        ├── pure_euclidean_scalability.py
-        ├── pure_scale_accuracy_visualization.py
-        └── runtime_analysis/
-            ├── runtime/
-            ├── figures/
-            ├── r24_r36_runtime_measurement.py
-            └── r24_r36_runtime_visualization.py
+        ├── r24_r36_runtime_measurement.py
+        └── r24_r36_runtime_visualization.py
 ```
 
 ## Per-folder implementation plan
@@ -231,13 +229,11 @@ For clarity, each revision folder should keep the same output style:
 - shared pure-metric utilities:
   - `pair_identification/pure_metrics.py`
 
-This keeps the revision package aligned with the original repository structure while remaining separate from the published `case_study` tree.
+This keeps the reviewer-response code aligned with the original repository structure and avoids a separate top-level revision package.
 
 ## Existing `(2) pure_graph` folder
 
-The existing exploratory folder reference:
-
-- `IEEE_Revision/case_study/...`
+The earlier idea of grouping these scripts under a separate revision-only directory should be treated as a temporary staging layout, not the final architecture.
 
 should be treated as an exploratory prototype, not the final architecture.
 

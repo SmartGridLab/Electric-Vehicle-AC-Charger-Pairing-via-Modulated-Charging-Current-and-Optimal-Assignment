@@ -6,7 +6,7 @@ import pandas as pd
 from matplotlib.ticker import MultipleLocator
 
 
-ROOT_DIR = Path(__file__).resolve().parents[4]
+ROOT_DIR = Path(__file__).resolve().parents[3]
 CASE_ACC_DIR = ROOT_DIR / "case_study/sensitivity_analysis/ii-d_Time_delay_from_command_value_to_EV_current/accuracy"
 PURE_ACC_DIR = Path(__file__).resolve().parent / "accuracy"
 OUT_DIR = Path(__file__).resolve().parent / "figures"

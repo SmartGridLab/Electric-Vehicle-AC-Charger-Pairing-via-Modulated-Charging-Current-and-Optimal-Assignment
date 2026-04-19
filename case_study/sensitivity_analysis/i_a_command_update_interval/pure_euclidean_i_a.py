@@ -5,11 +5,11 @@ import numpy as np
 import pandas as pd
 
 
-ROOT_DIR = Path(__file__).resolve().parents[4]
+ROOT_DIR = Path(__file__).resolve().parents[3]
 GEN_DIR = ROOT_DIR / "charging_current_generation"
-REV_PAIR_DIR = Path(__file__).resolve().parents[3] / "pair_identification"
+PAIR_DIR = ROOT_DIR / "pair_identification"
 sys.path.append(str(GEN_DIR))
-sys.path.append(str(REV_PAIR_DIR))
+sys.path.append(str(PAIR_DIR))
 
 from charging_current_generation_model import (  # noqa: E402
     generate_charger_ev_current,

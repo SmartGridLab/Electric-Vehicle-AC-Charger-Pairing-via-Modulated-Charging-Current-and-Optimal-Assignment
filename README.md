@@ -25,13 +25,15 @@ The directory structure corresponds directly to the sections of the manuscript:
 ├── pair_identification/           # [Section IV] PAIR-IDENTIFICATION METHOD
 │   ├── Correlation.py             # Baseline Metric (Correlation only)
 │   ├── Correlation_Euclidean.py   # Proposed Metric 1 (Correlation + Euclidean)
-│   └── Correlation_DTW.py         # Proposed Metric 2 (Correlation + DTW)
+│   ├── Correlation_DTW.py         # Proposed Metric 2 (Correlation + DTW)
+│   └── pure_metrics.py            # Pure Euclidean / Pure DTW utilities added for reviewer response
 ├── case_study/                    # [Section V] CASE STUDY
 │   ├── sensitivity_analysis/      # [V-B] Sensitivity Analysis of the Charging-Current Generation Model Parameters
-│   │   ├── i_a_command_update_interval/             # [V-B.1] Interval for Updating Command Value (I-a)
+│   │   ├── i_a_command_update_interval/             # [V-B.1] Interval for Updating Command Value (I-a), including pure-metric additions
 │   │   ├── ii_ab_Charger_and_EV_sampling_interval/  # [V-B.2] Charger‑side and EV‑side Sampling Interval (II‑a, II-b)
-│   │   └── ii-d_Time_delay_.../                     # [V-B.3] Time delay from command value to EV current measurement (II-d)
-│   └── scalability_analysis/      # [V-C] Scalability with the Number of EV–Charger Pairs
+│   │   └── ii-d_Time_delay_.../                     # [V-B.3] Time delay from command value to EV current measurement (II-d), including pure-metric additions
+│   └── scalability_analysis/      # [V-C] Scalability with the Number of EV–Charger Pairs, plus runtime analysis
+│       └── runtime_analysis/      # Runtime measurement scripts and plots added for reviewer response
 └── requirements.txt
 
 ```
@@ -111,6 +113,8 @@ This experiment evaluates pairing accuracy by sweeping the **interval for updati
 python case_study/sensitivity_analysis/i_a_command_update_interval/i_a_Correlation_DTW.py
 python case_study/sensitivity_analysis/i_a_command_update_interval/i_a_Correlation_Euclidean.py
 python case_study/sensitivity_analysis/i_a_command_update_interval/i_a_Correlation.py
+python case_study/sensitivity_analysis/i_a_command_update_interval/pure_dtw_i_a.py
+python case_study/sensitivity_analysis/i_a_command_update_interval/pure_euclidean_i_a.py
 
 ```
 *Output:* CSVs are saved in `case_study/sensitivity_analysis/i_a_command_update_interval/accuracy/`.
@@ -118,9 +122,11 @@ python case_study/sensitivity_analysis/i_a_command_update_interval/i_a_Correlati
 ```bash
 # Visualize the results
 python case_study/sensitivity_analysis/i_a_command_update_interval/i_a_Accuracy_visualization.py
+python case_study/sensitivity_analysis/i_a_command_update_interval/pure_i_a_accuracy_visualization.py
 
 ```
 *Output:* Figures are saved in `case_study/sensitivity_analysis/i_a_command_update_interval/figures/`.
+The added `pure_*` scripts generate reviewer-response comparisons against the baseline and composite metrics.
 
 #### B.2 Charger-side and EV-side Sampling Interval (II-a, II-b) (Fig. 13)
 
@@ -150,12 +156,15 @@ This experiment quantifies the impact of the **time delay (II-d)** on pairing ac
 python case_study/sensitivity_analysis/ii-d_Time_delay_from_command_value_to_EV_current/ii_d_Correlation_DTW.py
 python case_study/sensitivity_analysis/ii-d_Time_delay_from_command_value_to_EV_current/ii_d_Correlation_Euclidean.py
 python case_study/sensitivity_analysis/ii-d_Time_delay_from_command_value_to_EV_current/ii_d_Correlation.py
+python case_study/sensitivity_analysis/ii-d_Time_delay_from_command_value_to_EV_current/pure_dtw_ii_d.py
+python case_study/sensitivity_analysis/ii-d_Time_delay_from_command_value_to_EV_current/pure_euclidean_ii_d.py
 ```
 *Output:* CSVs are saved in `case_study/sensitivity_analysis/ii-d_Time_delay_from_command_value_to_EV_current/accuracy/`.
 
 ```bash
 # Visualize the sensitivity to time delay
 python case_study/sensitivity_analysis/ii-d_Time_delay_from_command_value_to_EV_current/ii_d_Accuracy_visualization.py
+python case_study/sensitivity_analysis/ii-d_Time_delay_from_command_value_to_EV_current/pure_ii_d_accuracy_visualization.py
 ```
 *Output:* Comparison plots (e.g., `ii_d_accuracy_all.png`) are saved in `case_study/sensitivity_analysis/ii-d_Time_delay_from_command_value_to_EV_current/figures/`.
 
@@ -167,17 +176,27 @@ This analysis evaluates the robustness of the framework as the **number of EV–
 ```bash
 # Run scalability tests
 # Note: Ensure the 'ev_start_time' parameter is set to 5 (transient) or 25 (steady) inside the scripts.
-python case_study/scalability_analysis/scalability_Correlation_DTW.py
-python case_study/scalability_analysis/scalability_Correlation_Euclidean.py
-python case_study/scalability_analysis/scalability_Correlation.py
+python case_study/scalability_analysis/scale_Correlation_DTW.py
+python case_study/scalability_analysis/scale_Correlation_Euclidean.py
+python case_study/scalability_analysis/scale_Correlation.py
+python case_study/scalability_analysis/pure_dtw_scalability.py
+python case_study/scalability_analysis/pure_euclidean_scalability.py
 ```
 *Output:* Results are saved in `case_study/scalability_analysis/accuracy/`.
 
 ```bash
 # Visualize scalability results
-python case_study/scalability_analysis/scalability_Accuracy_visualization.py
+python case_study/scalability_analysis/scale_Accuracy_visualization.py
+python case_study/scalability_analysis/pure_scale_accuracy_visualization.py
 ```
 *Output:* Scalability plots (e.g., `scale_accuracy_all.png`) are saved in `case_study/scalability_analysis/figures/`.
+
+```bash
+# Measure runtime for reviewer-response scalability discussion
+python case_study/scalability_analysis/runtime_analysis/r24_r36_runtime_measurement.py
+python case_study/scalability_analysis/runtime_analysis/r24_r36_runtime_visualization.py
+```
+*Output:* Runtime CSVs and figures are saved in `case_study/scalability_analysis/runtime_analysis/`.
 
 ---
 
